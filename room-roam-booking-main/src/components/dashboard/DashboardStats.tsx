@@ -1,7 +1,5 @@
-
-import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Calendar, CreditCard, MapPin } from 'lucide-react';
+import { Card, CardContent } from "@/components/ui/card";
+import { Calendar, CreditCard, MapPin } from "lucide-react";
 
 interface DashboardStatsProps {
   totalBookings: number;
@@ -9,13 +7,17 @@ interface DashboardStatsProps {
   citiesVisited: number;
 }
 
-const DashboardStats = ({ totalBookings, totalSpent, citiesVisited }: DashboardStatsProps) => {
+const DashboardStats = ({
+  totalBookings,
+  totalSpent,
+  citiesVisited,
+}: DashboardStatsProps) => {
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      maximumFractionDigits: 0,
     }).format(price);
   };
 
@@ -38,9 +40,7 @@ const DashboardStats = ({ totalBookings, totalSpent, citiesVisited }: DashboardS
           <div className="flex items-center">
             <CreditCard className="h-8 w-8 text-green-600 mr-3" />
             <div>
-              <p className="text-2xl font-bold">
-                {formatPrice(totalSpent)}
-              </p>
+              <p className="text-2xl font-bold">{formatPrice(totalSpent)}</p>
               <p className="text-gray-600">Total Pengeluaran</p>
             </div>
           </div>

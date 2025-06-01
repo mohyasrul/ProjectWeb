@@ -1,13 +1,12 @@
-
-import React, { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Mail, Gift } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Mail, Gift } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Newsletter = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -15,9 +14,10 @@ const Newsletter = () => {
     if (email) {
       toast({
         title: "Berhasil!",
-        description: "Anda telah berlangganan newsletter kami. Cek email untuk voucher diskon!",
+        description:
+          "Anda telah berlangganan newsletter kami. Cek email untuk voucher diskon!",
       });
-      setEmail('');
+      setEmail("");
     }
   };
 
@@ -35,17 +35,21 @@ const Newsletter = () => {
                   <Gift className="w-8 h-8 text-yellow-600" />
                 </div>
               </div>
-              
+
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
                 Dapatkan Promo Terbaik Langsung di Email Anda!
               </h2>
-              
+
               <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-                Berlangganan newsletter kami dan dapatkan voucher diskon 15% untuk pemesanan pertama Anda, 
-                plus update promo eksklusif dan tips travel terbaru.
+                Berlangganan newsletter kami dan dapatkan voucher diskon 15%
+                untuk pemesanan pertama Anda, plus update promo eksklusif dan
+                tips travel terbaru.
               </p>
-              
-              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+              >
                 <Input
                   type="email"
                   placeholder="Masukkan email Anda"
@@ -58,10 +62,13 @@ const Newsletter = () => {
                   Berlangganan
                 </Button>
               </form>
-              
+
               <p className="text-xs text-gray-500 mt-4">
-                Dengan berlangganan, Anda menyetujui{' '}
-                <span className="text-blue-600 cursor-pointer">kebijakan privasi</span> kami.
+                Dengan berlangganan, Anda menyetujui{" "}
+                <span className="text-blue-600 cursor-pointer">
+                  kebijakan privasi
+                </span>{" "}
+                kami.
               </p>
             </div>
           </CardContent>

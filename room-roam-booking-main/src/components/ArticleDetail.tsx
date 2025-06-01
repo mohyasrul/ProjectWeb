@@ -1,15 +1,14 @@
-
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Calendar, User, ArrowLeft, Share2 } from 'lucide-react';
+import { useParams, Link } from "react-router-dom";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Calendar, User, ArrowLeft, Share2 } from "lucide-react";
 
 const articles = [
   {
     id: 1,
     title: "10 Hotel Terbaik di Bali Tahun Ini",
-    excerpt: "Temukan pilihan akomodasi terbaik di Pulau Dewata untuk liburan yang tak terlupakan. Dari resort mewah hingga villa pribadi, Bali menawarkan pengalaman menginap yang tak terlupakan.",
+    excerpt:
+      "Temukan pilihan akomodasi terbaik di Pulau Dewata untuk liburan yang tak terlupakan. Dari resort mewah hingga villa pribadi, Bali menawarkan pengalaman menginap yang tak terlupakan.",
     content: `Bali tetap menjadi destinasi favorit wisatawan domestik dan internasional. Dengan berbagai pilihan akomodasi yang tersedia, mulai dari resort tepi pantai hingga villa di tengah persawahan, Pulau Dewata menawarkan pengalaman menginap yang beragam.
 
 Berikut adalah 10 hotel terbaik di Bali yang wajib Anda pertimbangkan untuk liburan berikutnya:
@@ -32,13 +31,15 @@ Dengan pemandangan cliff-top yang dramatis, resort ini menawarkan pengalaman yan
 Dan masih banyak lagi pilihan hotel menakjubkan lainnya di Bali yang siap memberikan pengalaman menginap terbaik untuk liburan Anda.`,
     author: "Tim Editorial",
     date: "15 Des 2024",
-    image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "Destinasi"
+    image:
+      "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    category: "Destinasi",
   },
   {
     id: 2,
     title: "Tips Liburan Hemat Bersama Keluarga",
-    excerpt: "Cara cerdas merencanakan liburan keluarga tanpa menguras kantong dengan tetap mendapatkan pengalaman yang menyenangkan dan berkesan.",
+    excerpt:
+      "Cara cerdas merencanakan liburan keluarga tanpa menguras kantong dengan tetap mendapatkan pengalaman yang menyenangkan dan berkesan.",
     content: `Liburan bersama keluarga tidak harus mahal. Dengan perencanaan yang tepat dan tips-tips cerdas, Anda bisa menikmati waktu berkualitas bersama keluarga tanpa khawatir tentang budget.
 
 **1. Pilih Waktu yang Tepat**
@@ -62,13 +63,15 @@ Cari tahu aktivitas gratis di destinasi yang Anda kunjungi, seperti taman kota, 
 Dengan tips-tips ini, liburan keluarga yang menyenangkan dan berkesan tetap bisa diwujudkan dengan budget yang terjangkau.`,
     author: "Sarah Wijaya",
     date: "12 Des 2024",
-    image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "Tips Travel"
+    image:
+      "https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    category: "Tips Travel",
   },
   {
     id: 3,
     title: "Panduan Wisata Kuliner Jakarta",
-    excerpt: "Eksplorasi kuliner terbaik Jakarta dari street food hingga fine dining yang wajib dicoba saat berkunjung ke ibu kota.",
+    excerpt:
+      "Eksplorasi kuliner terbaik Jakarta dari street food hingga fine dining yang wajib dicoba saat berkunjung ke ibu kota.",
     content: `Jakarta sebagai melting pot kuliner Indonesia menawarkan pengalaman kuliner yang tak terbatas. Dari gudeg Yu Djum hingga restoran fine dining di hotel berbintang lima, ibu kota memiliki segalanya untuk memuaskan lidah para pecinta kuliner.
 
 **Street Food Legendaris:**
@@ -96,20 +99,23 @@ French fine dining dengan sentuhan Indonesian yang sophisticated.
 Jakarta memang surga kuliner yang tak pernah kehabisan kejutan untuk dicoba!`,
     author: "Budi Santoso",
     date: "10 Des 2024",
-    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "Kuliner"
-  }
+    image:
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    category: "Kuliner",
+  },
 ];
 
 const ArticleDetail = () => {
   const { id } = useParams();
-  const article = articles.find(a => a.id === parseInt(id || '1'));
+  const article = articles.find((a) => a.id === parseInt(id || "1"));
 
   if (!article) {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Artikel tidak ditemukan</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            Artikel tidak ditemukan
+          </h1>
           <Link to="/articles">
             <Button>Kembali ke Daftar Artikel</Button>
           </Link>
@@ -121,7 +127,10 @@ const ArticleDetail = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
-        <Link to="/articles" className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-6">
+        <Link
+          to="/articles"
+          className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-6"
+        >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Kembali ke Daftar Artikel
         </Link>
@@ -132,18 +141,18 @@ const ArticleDetail = () => {
             alt={article.title}
             className="w-full h-64 md:h-96 object-cover"
           />
-          
+
           <CardContent className="p-8">
             <div className="mb-4">
               <span className="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded">
                 {article.category}
               </span>
             </div>
-            
+
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {article.title}
             </h1>
-            
+
             <div className="flex items-center justify-between mb-6 pb-6 border-b">
               <div className="flex items-center space-x-6 text-gray-600">
                 <div className="flex items-center">
@@ -155,25 +164,25 @@ const ArticleDetail = () => {
                   <span className="text-sm">{article.date}</span>
                 </div>
               </div>
-              
+
               <Button variant="outline" size="sm">
                 <Share2 className="w-4 h-4 mr-2" />
                 Bagikan
               </Button>
             </div>
-            
+
             <div className="prose prose-lg max-w-none">
               <p className="text-xl text-gray-600 mb-6 leading-relaxed">
                 {article.excerpt}
               </p>
-              
+
               <div className="text-gray-900 leading-relaxed whitespace-pre-line">
                 {article.content}
               </div>
             </div>
           </CardContent>
         </Card>
-        
+
         <div className="mt-8 text-center">
           <Link to="/articles">
             <Button variant="outline" size="lg">

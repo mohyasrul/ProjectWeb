@@ -1,17 +1,25 @@
-
-import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useAuthStore } from '../store/authStore';
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useAuthStore } from "../store/authStore";
 
 const AuthModal = () => {
   const { isAuthModalOpen, setAuthModalOpen, login, register } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
-  const [loginData, setLoginData] = useState({ email: '', password: '' });
-  const [registerData, setRegisterData] = useState({ name: '', email: '', password: '' });
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [registerData, setRegisterData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +31,11 @@ const AuthModal = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    await register(registerData.name, registerData.email, registerData.password);
+    await register(
+      registerData.name,
+      registerData.email,
+      registerData.password
+    );
     setIsLoading(false);
   };
 
@@ -33,13 +45,13 @@ const AuthModal = () => {
         <DialogHeader>
           <DialogTitle>Selamat Datang di Hotel Be Well</DialogTitle>
         </DialogHeader>
-        
+
         <Tabs defaultValue="login" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="login">Masuk</TabsTrigger>
             <TabsTrigger value="register">Daftar</TabsTrigger>
           </TabsList>
-          
+
           <TabsContent value="login">
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
@@ -48,7 +60,9 @@ const AuthModal = () => {
                   id="email"
                   type="email"
                   value={loginData.email}
-                  onChange={(e) => setLoginData({...loginData, email: e.target.value})}
+                  onChange={(e) =>
+                    setLoginData({ ...loginData, email: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -58,16 +72,18 @@ const AuthModal = () => {
                   id="password"
                   type="password"
                   value={loginData.password}
-                  onChange={(e) => setLoginData({...loginData, password: e.target.value})}
+                  onChange={(e) =>
+                    setLoginData({ ...loginData, password: e.target.value })
+                  }
                   required
                 />
               </div>
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? 'Sedang masuk...' : 'Masuk'}
+                {isLoading ? "Sedang masuk..." : "Masuk"}
               </Button>
             </form>
           </TabsContent>
-          
+
           <TabsContent value="register">
             <form onSubmit={handleRegister} className="space-y-4">
               <div>
@@ -75,7 +91,9 @@ const AuthModal = () => {
                 <Input
                   id="name"
                   value={registerData.name}
-                  onChange={(e) => setRegisterData({...registerData, name: e.target.value})}
+                  onChange={(e) =>
+                    setRegisterData({ ...registerData, name: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -85,7 +103,9 @@ const AuthModal = () => {
                   id="email"
                   type="email"
                   value={registerData.email}
-                  onChange={(e) => setRegisterData({...registerData, email: e.target.value})}
+                  onChange={(e) =>
+                    setRegisterData({ ...registerData, email: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -95,12 +115,17 @@ const AuthModal = () => {
                   id="password"
                   type="password"
                   value={registerData.password}
-                  onChange={(e) => setRegisterData({...registerData, password: e.target.value})}
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      password: e.target.value,
+                    })
+                  }
                   required
                 />
               </div>
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? 'Mendaftarkan akun...' : 'Daftar'}
+                {isLoading ? "Mendaftarkan akun..." : "Daftar"}
               </Button>
             </form>
           </TabsContent>
