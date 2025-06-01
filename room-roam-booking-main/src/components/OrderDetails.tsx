@@ -1,18 +1,25 @@
-
-import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, Users, CreditCard, ArrowLeft, Phone, Mail } from 'lucide-react';
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Calendar,
+  MapPin,
+  Users,
+  CreditCard,
+  ArrowLeft,
+  Phone,
+  Mail,
+} from "lucide-react";
 
 const OrderDetails = () => {
   const { orderId } = useParams();
   const navigate = useNavigate();
 
   // Get booking details from localStorage
-  const bookings = JSON.parse(localStorage.getItem('userBookings') || '[]');
-  const booking = bookings.find((b: any) => b.id === orderId);
+  const bookings = JSON.parse(localStorage.getItem("userBookings") || "[]");
+  const booking = bookings.find((b: { id: string }) => b.id === orderId);
 
   if (!booking) {
     return (
@@ -20,8 +27,13 @@ const OrderDetails = () => {
         <div className="max-w-4xl mx-auto px-4">
           <Card>
             <CardContent className="p-6 text-center">
-              <h2 className="text-xl font-semibold mb-4">Pemesanan tidak ditemukan</h2>
-              <Button onClick={() => navigate('/dashboard')} className="bg-blue-600 hover:bg-blue-700">
+              <h2 className="text-xl font-semibold mb-4">
+                Pemesanan tidak ditemukan
+              </h2>
+              <Button
+                onClick={() => navigate("/dashboard")}
+                className="bg-blue-600 hover:bg-blue-700"
+              >
                 Kembali ke Dashboard
               </Button>
             </CardContent>
@@ -33,23 +45,23 @@ const OrderDetails = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Confirmed':
-        return 'bg-green-100 text-green-800';
-      case 'Menunggu Konfirmasi':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'Rejected':
-        return 'bg-red-100 text-red-800';
+      case "Confirmed":
+        return "bg-green-100 text-green-800";
+      case "Menunggu Konfirmasi":
+        return "bg-yellow-100 text-yellow-800";
+      case "Rejected":
+        return "bg-red-100 text-red-800";
       default:
-        return 'bg-gray-100 text-gray-800';
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      maximumFractionDigits: 0,
     }).format(price);
   };
 
@@ -59,14 +71,16 @@ const OrderDetails = () => {
         <div className="flex items-center mb-6">
           <Button
             variant="ghost"
-            onClick={() => navigate('/dashboard')}
+            onClick={() => navigate("/dashboard")}
             className="mr-4"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Kembali
           </Button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Detail Pemesanan</h1>
+            <h1 className="text-2xl font-bold text-gray-900">
+              Detail Pemesanan
+            </h1>
             <p className="text-gray-600">ID Pemesanan: {booking.id}</p>
           </div>
         </div>
@@ -116,7 +130,7 @@ const OrderDetails = () => {
                   <div className="font-medium">{booking.checkOut}</div>
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <div className="flex items-center text-gray-600 mb-1">
@@ -151,21 +165,27 @@ const OrderDetails = () => {
             <CardContent className="space-y-3">
               <div>
                 <div className="text-gray-600 mb-1">Nama Lengkap</div>
-                <div className="font-medium">{booking.guestName || 'John Doe'}</div>
+                <div className="font-medium">
+                  {booking.guestName || "John Doe"}
+                </div>
               </div>
               <div>
                 <div className="flex items-center text-gray-600 mb-1">
                   <Mail className="h-4 w-4 mr-2" />
                   <span>Email</span>
                 </div>
-                <div className="font-medium">{booking.guestEmail || 'john.doe@email.com'}</div>
+                <div className="font-medium">
+                  {booking.guestEmail || "john.doe@email.com"}
+                </div>
               </div>
               <div>
                 <div className="flex items-center text-gray-600 mb-1">
                   <Phone className="h-4 w-4 mr-2" />
                   <span>Nomor Telepon</span>
                 </div>
-                <div className="font-medium">{booking.guestPhone || '+62 812-3456-7890'}</div>
+                <div className="font-medium">
+                  {booking.guestPhone || "+62 812-3456-7890"}
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -178,7 +198,9 @@ const OrderDetails = () => {
             <CardContent className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-gray-600">Harga per malam</span>
-                <span className="font-medium">{formatPrice(booking.pricePerNight || 500000)}</span>
+                <span className="font-medium">
+                  {formatPrice(booking.pricePerNight || 500000)}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Jumlah malam</span>
@@ -186,7 +208,9 @@ const OrderDetails = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Pajak & biaya layanan</span>
-                <span className="font-medium">{formatPrice(booking.tax || 50000)}</span>
+                <span className="font-medium">
+                  {formatPrice(booking.tax || 50000)}
+                </span>
               </div>
               <div className="border-t pt-2 flex justify-between text-lg font-semibold">
                 <span>Total</span>
@@ -194,7 +218,9 @@ const OrderDetails = () => {
               </div>
               <div className="mt-4">
                 <div className="text-gray-600 mb-1">Metode Pembayaran</div>
-                <div className="font-medium">{booking.paymentMethod || 'Transfer Bank'}</div>
+                <div className="font-medium">
+                  {booking.paymentMethod || "Transfer Bank"}
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -202,16 +228,10 @@ const OrderDetails = () => {
 
         {/* Action Buttons */}
         <div className="mt-6 flex justify-center space-x-4">
-          <Button variant="outline">
-            Cetak Voucher
-          </Button>
-          <Button variant="outline">
-            Hubungi Hotel
-          </Button>
-          {booking.status === 'Confirmed' && (
-            <Button variant="destructive">
-              Batalkan Pemesanan
-            </Button>
+          <Button variant="outline">Cetak Voucher</Button>
+          <Button variant="outline">Hubungi Hotel</Button>
+          {booking.status === "Confirmed" && (
+            <Button variant="destructive">Batalkan Pemesanan</Button>
           )}
         </div>
       </div>

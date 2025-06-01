@@ -1,38 +1,53 @@
-
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, Users, Trash2, X } from 'lucide-react';
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Calendar, MapPin, Users, Trash2, X } from "lucide-react";
 
 interface BookingCardProps {
-  booking: any;
+  booking: {
+    id: string;
+    hotel: string;
+    image: string;
+    location: string;
+    checkIn: string;
+    checkOut: string;
+    guests: number;
+    rooms: number;
+    total: number;
+    status: string;
+  };
   onViewDetails: (bookingId: string) => void;
   onCancelBooking: (bookingId: string) => void;
   onDeleteBooking: (bookingId: string) => void;
 }
 
-const BookingCard = ({ booking, onViewDetails, onCancelBooking, onDeleteBooking }: BookingCardProps) => {
+const BookingCard = ({
+  booking,
+  onViewDetails,
+  onCancelBooking,
+  onDeleteBooking,
+}: BookingCardProps) => {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Confirmed':
-        return 'bg-green-100 text-green-800';
-      case 'Menunggu Konfirmasi':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'Cancelled':
-        return 'bg-red-100 text-red-800';
-      case 'Rejected':
-        return 'bg-red-100 text-red-800';
+      case "Confirmed":
+        return "bg-green-100 text-green-800";
+      case "Menunggu Konfirmasi":
+        return "bg-yellow-100 text-yellow-800";
+      case "Cancelled":
+        return "bg-red-100 text-red-800";
+      case "Rejected":
+        return "bg-red-100 text-red-800";
       default:
-        return 'bg-gray-100 text-gray-800';
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      maximumFractionDigits: 0,
     }).format(price);
   };
 
@@ -44,7 +59,7 @@ const BookingCard = ({ booking, onViewDetails, onCancelBooking, onDeleteBooking 
           alt={booking.hotel}
           className="w-full md:w-48 h-32 object-cover rounded-lg"
         />
-        
+
         <div className="flex-1">
           <div className="flex justify-between items-start mb-4">
             <div>
@@ -98,16 +113,16 @@ const BookingCard = ({ booking, onViewDetails, onCancelBooking, onDeleteBooking 
           </div>
 
           <div className="flex justify-end mt-4 space-x-2">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => onViewDetails(booking.id)}
             >
               Lihat Detail
             </Button>
-            {booking.status === 'Confirmed' && (
-              <Button 
-                variant="outline" 
+            {booking.status === "Confirmed" && (
+              <Button
+                variant="outline"
                 size="sm"
                 onClick={() => onCancelBooking(booking.id)}
               >
@@ -115,8 +130,8 @@ const BookingCard = ({ booking, onViewDetails, onCancelBooking, onDeleteBooking 
                 Batalkan
               </Button>
             )}
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => onDeleteBooking(booking.id)}
               className="text-red-600 hover:text-red-700"

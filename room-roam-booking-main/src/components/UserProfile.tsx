@@ -49,7 +49,7 @@ const UserProfile = () => {
   // Get user bookings from localStorage
   const userBookings = JSON.parse(localStorage.getItem("userBookings") || "[]");
   const completedBookings = userBookings.filter(
-    (booking: any) => booking.status === "Dikonfirmasi"
+    (booking: { status: string }) => booking.status === "Dikonfirmasi"
   ).length;
 
   const membershipLevel =
