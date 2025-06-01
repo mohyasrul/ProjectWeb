@@ -1,73 +1,234 @@
-# Welcome to your Lovable project
+# 🏨 Hotel Be Well
 
-## Project info
+A modern, full-featured hotel booking platform built with React and TypeScript. Experience seamless hotel discovery, booking management, and user-friendly interfaces designed for both travelers and hotel administrators.
 
-**URL**: https://lovable.dev/projects/3d4ce2db-b8f3-4bca-9dce-a824cb6365c2
+![Hotel Be Well](./public/logo.png)
 
-## How can I edit this code?
+## ✨ Features
 
-There are several ways of editing your application.
+### 🔍 **Hotel Discovery**
 
-**Use Lovable**
+- Advanced search with filters (location, price, rating, amenities)
+- Featured hotels showcase
+- Popular destinations exploration
+- Detailed hotel pages with image galleries and amenities
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3d4ce2db-b8f3-4bca-9dce-a824cb6365c2) and start prompting.
+### 📅 **Booking Management**
 
-Changes made via Lovable will be committed automatically to this repo.
+- Intuitive booking flow with date selection
+- Real-time pricing and availability
+- Order tracking and management
+- User dashboard with booking history
 
-**Use your preferred IDE**
+### 👤 **User Experience**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Secure authentication system
+- User profiles and preferences
+- Booking statistics and analytics
+- Responsive design for all devices
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 📰 **Content & Information**
 
-Follow these steps:
+- Travel articles and guides
+- Customer testimonials
+- FAQ section
+- About page with company information
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### 🎨 **Modern UI/UX**
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- Clean, professional design
+- Smooth animations and transitions
+- Accessible components
+- Dark/light theme support
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🚀 Tech Stack
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+- **Framework**: React 18 with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui + Radix UI
+- **State Management**: Zustand
+- **Routing**: React Router Dom
+- **Charts**: Recharts
+- **Icons**: Lucide React
+- **Date Handling**: date-fns
+
+## 📂 Project Structure
+
+```
+src/
+├── components/          # React components
+│   ├── ui/             # Reusable UI components (shadcn/ui)
+│   └── dashboard/      # Dashboard-specific components
+├── pages/              # Page components and routing
+├── hooks/              # Custom React hooks
+├── store/              # State management (Zustand)
+├── lib/                # Utilities and helpers
+└── types/              # TypeScript type definitions
+```
+
+## 🛠️ Getting Started
+
+### Prerequisites
+
+- Node.js 18+ and npm/yarn
+- Git
+
+### Installation
+
+1. **Clone the repository**
+
+```bash
+git clone <repository-url>
+cd room-roam-booking-main
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+```
+
+3. **Start development server**
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. **Open your browser**
+   Navigate to `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Available Scripts
 
-**Use GitHub Codespaces**
+```bash
+# Development
+npm run dev          # Start dev server
+npm run build        # Build for production
+npm run preview      # Preview production build
+npm run lint         # Run ESLint
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Type checking
+npm run type-check   # TypeScript type checking
+```
 
-## What technologies are used for this project?
+## 🏗️ Key Components
 
-This project is built with:
+### **Core Pages**
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Homepage**: Hotel search, featured properties, testimonials
+- **Hotel Listing**: Search results with advanced filtering
+- **Hotel Details**: Comprehensive hotel information and booking
+- **User Dashboard**: Booking management and user statistics
+- **Articles**: Travel guides and blog content
 
-## How can I deploy this project?
+### **UI Components**
 
-Simply open [Lovable](https://lovable.dev/projects/3d4ce2db-b8f3-4bca-9dce-a824cb6365c2) and click on Share -> Publish.
+Built with shadcn/ui for consistency and accessibility:
 
-## Can I connect a custom domain to my Lovable project?
+- Forms and inputs with validation
+- Data tables and pagination
+- Modal dialogs and drawers
+- Charts and data visualization
+- Navigation and breadcrumbs
 
-Yes, you can!
+### **State Management**
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- **Auth Store**: User authentication and profile
+- **Booking Store**: Booking data and preferences
+- **UI Store**: Theme, notifications, and app state
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 🎯 Features in Detail
+
+### Hotel Search & Filtering
+
+- Location-based search
+- Price range filtering
+- Star rating selection
+- Amenity filtering (WiFi, Pool, Spa, etc.)
+- Sort by price, rating, popularity
+
+### Booking Flow
+
+1. Hotel selection and room choice
+2. Date selection with availability check
+3. Guest information and special requests
+4. Payment integration (mock)
+5. Confirmation and booking management
+
+### User Dashboard
+
+- Booking history and status
+- Spending analytics with charts
+- Profile management
+- Favorite hotels
+- Travel statistics
+
+## 🔧 Configuration
+
+### Environment Variables
+
+Create a `.env.local` file:
+
+```env
+VITE_API_URL=your_api_url
+VITE_PAYMENT_KEY=your_payment_key
+```
+
+### Customization
+
+- **Theming**: Modify `tailwind.config.ts` for custom colors
+- **Components**: Extend `src/components/ui/` for new UI elements
+- **Routing**: Update `src/pages/Index.tsx` for new routes
+
+## 📱 Responsive Design
+
+Fully responsive design supporting:
+
+- Desktop (1024px+)
+- Tablet (768px - 1023px)
+- Mobile (320px - 767px)
+
+## 🧪 Testing
+
+```bash
+npm run test         # Run unit tests
+npm run test:e2e     # Run end-to-end tests
+npm run test:coverage # Generate coverage report
+```
+
+## 🚀 Deployment
+
+### Production Build
+
+```bash
+npm run build
+```
+
+### Deploy to Various Platforms
+
+- **Vercel**: `vercel --prod`
+- **Netlify**: Drag & drop `dist/` folder
+- **GitHub Pages**: Use GitHub Actions
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [shadcn/ui](https://ui.shadcn.com/) for the beautiful UI components
+- [Lucide](https://lucide.dev/) for the icon library
+- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
+- [Radix UI](https://www.radix-ui.com/) for accessible component primitives
+
+---
+
+**Hotel Be Well** - Making hotel booking simple, beautiful, and efficient. ✈️🏨
