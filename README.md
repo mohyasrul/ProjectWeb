@@ -2,7 +2,7 @@
 
 A modern, full-featured hotel booking platform built with React and TypeScript. Experience seamless hotel discovery, booking management, and user-friendly interfaces designed for both travelers and hotel administrators.
 
-![Hotel Be Well](./public/logo.png)
+![Hotel Be Well](logo.png)
 
 ## ✨ Features
 
