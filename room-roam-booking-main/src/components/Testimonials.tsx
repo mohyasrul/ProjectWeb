@@ -11,43 +11,38 @@ import { Star } from "lucide-react";
 const testimonials = [
   {
     id: 1,
-    name: "Sarah Wijaya",
+    name: "Joko Widodo",
     location: "Jakarta",
     rating: 5,
     comment:
-      "Pelayanan yang luar biasa! Hotel yang saya pesan benar-benar sesuai dengan foto dan deskripsi. Prosesnya mudah dan cepat.",
-    avatar:
-      "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+      "We wok de tok, not only tok de tok. Platform ini memudahkan pencarian hotel terbaik!",
+    avatar: "/jokowidodo.jpg",
   },
   {
     id: 2,
-    name: "Budi Santoso",
-    location: "Surabaya",
+    name: "Gibran Rakabuming",
+    location: "Solo",
     rating: 5,
     comment:
-      "Harga terbaik yang pernah saya dapat! Customer service 24/7 sangat membantu ketika ada kendala.",
-    avatar:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+      "Sebagai fufufafa, saya butuh platform yang modern dan user-friendly. Hotelbewell adalah solusinya!",
+    avatar: "/gibran.jpg",
   },
   {
     id: 3,
-    name: "Maya Sari",
-    location: "Bandung",
+    name: "Prabowo Subianto",
+    location: "Jakarta",
     rating: 5,
-    comment:
-      "Liburan keluarga jadi sempurna berkat rekomendasi hotel dari platform ini. Sangat recommended!",
-    avatar:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+    comment: "HIDUP JOKOWI!",
+    avatar: "/prabowo.jpg",
   },
   {
     id: 4,
-    name: "Ahmad Rahman",
-    location: "Medan",
+    name: "Monkey D. Luffy",
+    location: "East Blue",
     rating: 4,
     comment:
-      "Proses booking sangat mudah dan pembayaran aman. Hotel yang didapat juga berkualitas tinggi.",
-    avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+      "Yosh! Hotel yang didapat enak banget! Sekarang adventure jadi lebih nyaman. Arigatou!",
+    avatar: "/luffy.jpg",
   },
 ];
 
