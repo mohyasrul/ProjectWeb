@@ -63,7 +63,7 @@ const HeroSearch = () => {
                 </Label>
                 <Input
                   id="location"
-                  placeholder="City, state, or country"
+                  placeholder="City, state, or else"
                   value={searchData.location}
                   onChange={(e) =>
                     setSearchData({ ...searchData, location: e.target.value })
