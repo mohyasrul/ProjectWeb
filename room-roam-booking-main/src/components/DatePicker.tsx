@@ -1,27 +1,34 @@
-
-import * as React from "react"
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import * as React from "react";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface DatePickerProps {
-  selected?: Date | null
-  onSelect: (date: Date | undefined) => void
-  placeholder?: string
+  selected?: Date | null;
+  onSelect: (date: Date | undefined) => void;
+  placeholder?: string;
 }
 
-export function DatePicker({ selected, onSelect, placeholder = "Pick a date" }: DatePickerProps) {
+export function DatePicker({
+  selected,
+  onSelect,
+  placeholder = "Pick a date",
+}: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
           className={cn(
-            "w-full justify-start text-left font-normal mt-1",
-            !selected && "text-muted-foreground"
+            "w-full justify-start text-left font-normal mt-1 bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm",
+            !selected && "text-white/60"
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -38,5 +45,5 @@ export function DatePicker({ selected, onSelect, placeholder = "Pick a date" }: 
         />
       </PopoverContent>
     </Popover>
-  )
+  );
 }

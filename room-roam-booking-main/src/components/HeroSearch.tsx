@@ -43,21 +43,22 @@ const HeroSearch = () => {
       }}
     >
       <div className="max-w-6xl mx-auto text-center">
-        <h1 className="text-5xl font-bold text-white mb-6">
-          Find Your Perfect Stay
-        </h1>
-        <p className="text-xl text-gray-200 mb-12 max-w-2xl mx-auto">
-          Discover amazing hotels around the world with the best prices and
-          reviews
-        </p>
-
-        <Card className="max-w-4xl mx-auto shadow-xl">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-5xl font-bold text-white mb-6">
+            Find Your Perfect Stay
+          </h1>
+          <p className="text-xl text-gray-200 mb-12 max-w-2xl mx-auto">
+            Discover amazing hotels around Nusantara with the best prices and
+            reviews
+          </p>
+        </div>
+        <Card className="max-w-4xl mx-auto bg-white/10 border-white/10 shadow-2xl">
           <CardContent className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
               <div className="md:col-span-2">
                 <Label
                   htmlFor="location"
-                  className="text-sm font-medium text-gray-700"
+                  className="text-sm font-medium text-white/90"
                 >
                   Where are you going?
                 </Label>
@@ -68,12 +69,12 @@ const HeroSearch = () => {
                   onChange={(e) =>
                     setSearchData({ ...searchData, location: e.target.value })
                   }
-                  className="mt-1"
+                  className="mt-1 bg-white/20 border-white/30 text-white placeholder:text-white/60 backdrop-blur-sm"
                 />
               </div>
 
               <div>
-                <Label className="text-sm font-medium text-gray-700">
+                <Label className="text-sm font-medium text-white/90">
                   Check-in
                 </Label>
                 <DatePicker
@@ -86,7 +87,7 @@ const HeroSearch = () => {
               </div>
 
               <div>
-                <Label className="text-sm font-medium text-gray-700">
+                <Label className="text-sm font-medium text-white/90">
                   Check-out
                 </Label>
                 <DatePicker
@@ -99,7 +100,7 @@ const HeroSearch = () => {
               </div>
 
               <div>
-                <Label className="text-sm font-medium text-gray-700">
+                <Label className="text-sm font-medium text-white/90">
                   Guests & Rooms
                 </Label>
                 <div className="flex space-x-2">
@@ -113,7 +114,7 @@ const HeroSearch = () => {
                         guests: parseInt(e.target.value) || 1,
                       })
                     }
-                    className="w-20"
+                    className="w-20 bg-white/20 border-white/30 text-white/90 placeholder:text-white/60 backdrop-blur-sm"
                   />
                   <Input
                     type="number"
@@ -125,7 +126,7 @@ const HeroSearch = () => {
                         rooms: parseInt(e.target.value) || 1,
                       })
                     }
-                    className="w-20"
+                    className="w-20 bg-white/20 border-white/30 text-white/90 placeholder:text-white/60 backdrop-blur-sm"
                   />
                 </div>
               </div>
@@ -133,7 +134,7 @@ const HeroSearch = () => {
 
             <Button
               onClick={handleSearch}
-              className="w-full md:w-auto mt-6 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg"
+              className="w-full md:w-auto mt-6 bg-blue-600/80 hover:bg-blue-700/90 backdrop-blur-sm text-white px-8 py-3 text-lg border border-white/20"
               size="lg"
             >
               <Search className="mr-2 h-5 w-5" />

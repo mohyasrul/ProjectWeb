@@ -106,14 +106,14 @@ const UserProfile = () => {
                     {completedBookings} Booking Selesai
                   </Badge>
                   <Badge className="bg-white/20 text-white border-white/30">
-                    Bergabung 2024
+                    Bergabung 2025
                   </Badge>
                 </div>
               </div>
 
               <div className="text-center">
                 <div className="bg-white/20 rounded-lg p-4 backdrop-blur-sm">
-                  <div className="text-2xl font-bold">2,540</div>
+                  <div className="text-2xl font-bold">10</div>
                   <div className="text-sm text-blue-100">Poin Tersedia</div>
                 </div>
               </div>
@@ -239,7 +239,7 @@ const UserProfile = () => {
                         </Badge>
                         <div className="text-right">
                           <div className="text-2xl font-bold text-blue-600">
-                            2,540
+                            20
                           </div>
                           <div className="text-sm text-gray-600">Poin</div>
                         </div>
@@ -256,19 +256,19 @@ const UserProfile = () => {
                         </div>
                         <div>
                           <div className="text-xl font-bold text-gray-900">
-                            12
+                            0
                           </div>
                           <div className="text-sm text-gray-600">Tahun Ini</div>
                         </div>
                         <div>
                           <div className="text-xl font-bold text-gray-900">
-                            5
+                            0
                           </div>
                           <div className="text-sm text-gray-600">Favorit</div>
                         </div>
                         <div>
                           <div className="text-xl font-bold text-gray-900">
-                            98%
+                            100%
                           </div>
                           <div className="text-sm text-gray-600">Rating</div>
                         </div>

@@ -37,9 +37,9 @@ const Index = () => {
               <>
                 <HeroSearch />
                 <FeaturedHotels />
+                <PopularDestinations />
                 <Testimonials />
                 <WhyChooseUs />
-                <PopularDestinations />
                 <TravelArticles />
                 <Partners />
                 <Newsletter />
