@@ -40,8 +40,7 @@ const testimonials = [
     name: "Monkey D. Luffy",
     location: "East Blue",
     rating: 4,
-    comment:
-      "Yosh! Hotel yang didapat enak banget! Sekarang adventure jadi lebih nyaman. Arigatou!",
+    comment: "Selain suka daging, aku juga suka Hotel Be Well!",
     avatar: "/luffy.jpg",
   },
 ];

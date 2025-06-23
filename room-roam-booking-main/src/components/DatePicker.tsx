@@ -14,23 +14,32 @@ interface DatePickerProps {
   selected?: Date | null;
   onSelect: (date: Date | undefined) => void;
   placeholder?: string;
+  variant?: "default" | "transparent";
 }
 
 export function DatePicker({
   selected,
   onSelect,
   placeholder = "Pick a date",
+  variant = "default",
 }: DatePickerProps) {
+  const getButtonStyles = () => {
+    if (variant === "transparent") {
+      return cn(
+        "w-full justify-start text-left font-normal mt-1 bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm",
+        !selected && "text-white/60"
+      );
+    }
+    return cn(
+      "w-full justify-start text-left font-normal mt-1 bg-white border-gray-300 text-gray-900 hover:bg-gray-50",
+      !selected && "text-gray-500"
+    );
+  };
+
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          variant={"outline"}
-          className={cn(
-            "w-full justify-start text-left font-normal mt-1 bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm",
-            !selected && "text-white/60"
-          )}
-        >
+        <Button variant={"outline"} className={getButtonStyles()}>
           <CalendarIcon className="mr-2 h-4 w-4" />
           {selected ? format(selected, "PPP") : <span>{placeholder}</span>}
         </Button>

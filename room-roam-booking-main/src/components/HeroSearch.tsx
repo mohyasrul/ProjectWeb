@@ -83,6 +83,7 @@ const HeroSearch = () => {
                     setSearchData({ ...searchData, checkIn: date })
                   }
                   placeholder="Select date"
+                  variant="transparent"
                 />
               </div>
 
@@ -96,6 +97,7 @@ const HeroSearch = () => {
                     setSearchData({ ...searchData, checkOut: date })
                   }
                   placeholder="Select date"
+                  variant="transparent"
                 />
               </div>
 

@@ -140,6 +140,7 @@ const BookingForm = () => {
     guests: 2,
     rooms: 1,
     specialRequests: "",
+    paymentMethod: "bank_transfer" as string,
   });
 
   // Find the hotel and room based on URL parameters
@@ -203,6 +204,9 @@ const BookingForm = () => {
       total: finalTotal,
       status: "Dikonfirmasi",
       image: room.image,
+      paymentMethod: bookingData.paymentMethod,
+      guestName: `${bookingData.firstName} ${bookingData.lastName}`,
+      specialRequests: bookingData.specialRequests,
     };
 
     // Store booking in localStorage (simulating database)
@@ -381,6 +385,149 @@ const BookingForm = () => {
                       rows={4}
                       placeholder="Permintaan khusus atau preferensi..."
                     />
+                  </div>
+
+                  <Separator />
+
+                  <div>
+                    <Label className="text-base font-semibold">
+                      Metode Pembayaran *
+                    </Label>
+                    <div className="mt-3 space-y-3">
+                      {/* E-Wallets */}
+                      <div>
+                        <p className="text-sm font-medium text-gray-700 mb-2">
+                          E-Wallet
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                          <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">
+                            <input
+                              type="radio"
+                              name="paymentMethod"
+                              value="dana"
+                              checked={bookingData.paymentMethod === "dana"}
+                              onChange={(e) =>
+                                setBookingData({
+                                  ...bookingData,
+                                  paymentMethod: e.target.value,
+                                })
+                              }
+                              className="mr-3"
+                            />
+                            <div className="flex items-center">
+                              <div className="w-8 h-8 bg-blue-600 rounded text-white text-xs font-bold flex items-center justify-center mr-2">
+                                DANA
+                              </div>
+                              <span className="text-sm font-medium">DANA</span>
+                            </div>
+                          </label>
+
+                          <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-purple-50 transition-colors">
+                            <input
+                              type="radio"
+                              name="paymentMethod"
+                              value="ovo"
+                              checked={bookingData.paymentMethod === "ovo"}
+                              onChange={(e) =>
+                                setBookingData({
+                                  ...bookingData,
+                                  paymentMethod: e.target.value,
+                                })
+                              }
+                              className="mr-3"
+                            />
+                            <div className="flex items-center">
+                              <div className="w-8 h-8 bg-purple-600 rounded text-white text-xs font-bold flex items-center justify-center mr-2">
+                                OVO
+                              </div>
+                              <span className="text-sm font-medium">OVO</span>
+                            </div>
+                          </label>
+
+                          <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-green-50 transition-colors">
+                            <input
+                              type="radio"
+                              name="paymentMethod"
+                              value="gopay"
+                              checked={bookingData.paymentMethod === "gopay"}
+                              onChange={(e) =>
+                                setBookingData({
+                                  ...bookingData,
+                                  paymentMethod: e.target.value,
+                                })
+                              }
+                              className="mr-3"
+                            />
+                            <div className="flex items-center">
+                              <div className="w-8 h-8 bg-green-600 rounded text-white text-xs font-bold flex items-center justify-center mr-2">
+                                GP
+                              </div>
+                              <span className="text-sm font-medium">GoPay</span>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+
+                      {/* Bank Transfer */}
+                      <div>
+                        <p className="text-sm font-medium text-gray-700 mb-2">
+                          Transfer Bank
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-red-50 transition-colors">
+                            <input
+                              type="radio"
+                              name="paymentMethod"
+                              value="bank_transfer"
+                              checked={
+                                bookingData.paymentMethod === "bank_transfer"
+                              }
+                              onChange={(e) =>
+                                setBookingData({
+                                  ...bookingData,
+                                  paymentMethod: e.target.value,
+                                })
+                              }
+                              className="mr-3"
+                            />
+                            <div className="flex items-center">
+                              <div className="w-8 h-8 bg-red-600 rounded text-white text-xs font-bold flex items-center justify-center mr-2">
+                                BT
+                              </div>
+                              <span className="text-sm font-medium">
+                                Transfer Bank
+                              </span>
+                            </div>
+                          </label>
+
+                          <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-yellow-50 transition-colors">
+                            <input
+                              type="radio"
+                              name="paymentMethod"
+                              value="virtual_account"
+                              checked={
+                                bookingData.paymentMethod === "virtual_account"
+                              }
+                              onChange={(e) =>
+                                setBookingData({
+                                  ...bookingData,
+                                  paymentMethod: e.target.value,
+                                })
+                              }
+                              className="mr-3"
+                            />
+                            <div className="flex items-center">
+                              <div className="w-8 h-8 bg-yellow-600 rounded text-white text-xs font-bold flex items-center justify-center mr-2">
+                                VA
+                              </div>
+                              <span className="text-sm font-medium">
+                                Virtual Account
+                              </span>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <Button

@@ -6,19 +6,20 @@ import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/hooks/use-toast";
 import {
   User,
-  Mail,
-  Phone,
-  MapPin,
-  Calendar,
   Settings,
   Award,
-  CreditCard,
   Bell,
   Shield,
   LogOut,
   Camera,
+  Star,
+  TrendingUp,
+  Gift,
+  Crown,
+  Heart,
 } from "lucide-react";
 import { useAuthStore } from "../store/authStore";
 import { useNavigate } from "react-router-dom";
@@ -26,6 +27,7 @@ import { useNavigate } from "react-router-dom";
 const UserProfile = () => {
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("personal");
 
   if (!user) {
@@ -36,46 +38,98 @@ const UserProfile = () => {
   const handleLogout = () => {
     logout();
     navigate("/");
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("id-ID", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+    toast({
+      title: "Berhasil keluar",
+      description: "Anda telah berhasil keluar dari akun",
     });
   };
 
-  // Get user bookings from localStorage
+  // Get user bookings and calculate membership
   const userBookings = JSON.parse(localStorage.getItem("userBookings") || "[]");
   const completedBookings = userBookings.filter(
     (booking: { status: string }) => booking.status === "Dikonfirmasi"
   ).length;
 
-  const membershipLevel =
-    completedBookings >= 10
-      ? "Platinum"
-      : completedBookings >= 5
-      ? "Gold"
-      : "Silver";
-  const membershipColor =
-    membershipLevel === "Platinum"
-      ? "bg-purple-100 text-purple-800"
-      : membershipLevel === "Gold"
-      ? "bg-yellow-100 text-yellow-800"
-      : "bg-gray-100 text-gray-800";
+  const totalSpent = userBookings.reduce(
+    (sum: number, booking: any) => sum + booking.total,
+    0
+  );
+
+  const getMembershipData = () => {
+    if (completedBookings >= 15) {
+      return {
+        level: "Diamond",
+        color: "bg-gradient-to-r from-purple-600 to-pink-600",
+        textColor: "text-white",
+        icon: Crown,
+        progress: 100,
+        nextLevel: null,
+        benefits: [
+          "Upgrade kamar gratis",
+          "Late checkout",
+          "Welcome drink",
+          "Priority support",
+          "Exclusive deals",
+        ],
+      };
+    } else if (completedBookings >= 10) {
+      return {
+        level: "Platinum",
+        color: "bg-gradient-to-r from-gray-700 to-gray-900",
+        textColor: "text-white",
+        icon: Award,
+        progress: (completedBookings / 15) * 100,
+        nextLevel: "Diamond (15 booking)",
+        benefits: [
+          "Upgrade kamar",
+          "Late checkout",
+          "Welcome drink",
+          "Priority support",
+        ],
+      };
+    } else if (completedBookings >= 5) {
+      return {
+        level: "Gold",
+        color: "bg-gradient-to-r from-yellow-500 to-yellow-600",
+        textColor: "text-white",
+        icon: Star,
+        progress: (completedBookings / 10) * 100,
+        nextLevel: "Platinum (10 booking)",
+        benefits: [
+          "Welcome drink",
+          "Upgrade kamar (subject to availability)",
+          "Priority check-in",
+        ],
+      };
+    } else {
+      return {
+        level: "Silver",
+        color: "bg-gradient-to-r from-gray-400 to-gray-500",
+        textColor: "text-white",
+        icon: Gift,
+        progress: (completedBookings / 5) * 100,
+        nextLevel: "Gold (5 booking)",
+        benefits: [
+          "Poin reward",
+          "Newsletter eksklusif",
+          "Birthday special offer",
+        ],
+      };
+    }
+  };
+
+  const membershipData = getMembershipData();
 
   const tabs = [
     { id: "personal", label: "Informasi Pribadi", icon: User },
-    { id: "security", label: "Keamanan", icon: Shield },
-    { id: "preferences", label: "Preferensi", icon: Settings },
+    { id: "membership", label: "Membership", icon: Crown },
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8">
       <div className="max-w-6xl mx-auto px-4">
-        {/* Profile Header */}
-        <Card className="mb-8 overflow-hidden">
+        {/* Enhanced Profile Header */}
+        <Card className="mb-8 overflow-hidden shadow-xl">
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
               <div className="relative">
@@ -98,9 +152,11 @@ const UserProfile = () => {
                 <p className="text-blue-100 mb-4">{user.email}</p>
 
                 <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-                  <Badge className={`${membershipColor} border-0`}>
-                    <Award className="h-3 w-3 mr-1" />
-                    Member {membershipLevel}
+                  <Badge
+                    className={`${membershipData.color} ${membershipData.textColor} border-0`}
+                  >
+                    <membershipData.icon className="h-3 w-3 mr-1" />
+                    Member {membershipData.level}
                   </Badge>
                   <Badge className="bg-white/20 text-white border-white/30">
                     {completedBookings} Booking Selesai
@@ -111,321 +167,227 @@ const UserProfile = () => {
                 </div>
               </div>
 
-              <div className="text-center">
-                <div className="bg-white/20 rounded-lg p-4 backdrop-blur-sm">
-                  <div className="text-2xl font-bold">10</div>
+              <div className="flex flex-col gap-4">
+                <div className="text-center bg-white/20 rounded-lg p-4 backdrop-blur-sm">
+                  <div className="text-2xl font-bold">
+                    {Math.floor(totalSpent / 100000)}
+                  </div>
                   <div className="text-sm text-blue-100">Poin Tersedia</div>
                 </div>
+                <Button
+                  onClick={() => navigate("/dashboard")}
+                  variant="outline"
+                  className="bg-white/20 text-white border-white/30 hover:bg-white/30"
+                >
+                  Dashboard
+                </Button>
               </div>
             </div>
           </div>
         </Card>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar Navigation */}
+          {/* Enhanced Sidebar Navigation */}
           <div className="lg:col-span-1">
             <Card>
-              <CardContent className="p-0">
-                <nav className="space-y-1">
+              <CardContent className="p-4">
+                <nav className="space-y-2">
                   {tabs.map((tab) => {
                     const Icon = tab.icon;
                     return (
-                      <button
+                      <Button
                         key={tab.id}
-                        onClick={() => setActiveTab(tab.id)}
-                        className={`w-full flex items-center px-4 py-3 text-left transition-colors ${
+                        variant={activeTab === tab.id ? "default" : "ghost"}
+                        className={`w-full justify-start ${
                           activeTab === tab.id
-                            ? "bg-blue-50 text-blue-600 border-r-2 border-blue-600"
-                            : "text-gray-600 hover:bg-gray-50"
+                            ? "bg-blue-600 text-white"
+                            : "text-gray-600 hover:text-blue-600"
                         }`}
+                        onClick={() => setActiveTab(tab.id)}
                       >
-                        <Icon className="h-5 w-5 mr-3" />
+                        <Icon className="h-4 w-4 mr-3" />
                         {tab.label}
-                      </button>
+                      </Button>
                     );
                   })}
-
-                  <Separator className="my-2" />
-
-                  <button
-                    onClick={() => navigate("/dashboard")}
-                    className="w-full flex items-center px-4 py-3 text-left text-gray-600 hover:bg-gray-50 transition-colors"
-                  >
-                    <User className="h-5 w-5 mr-3" />
-                    Dashboard
-                  </button>
-
-                  <button
-                    onClick={handleLogout}
-                    className="w-full flex items-center px-4 py-3 text-left text-red-600 hover:bg-red-50 transition-colors"
-                  >
-                    <LogOut className="h-5 w-5 mr-3" />
-                    Keluar
-                  </button>
                 </nav>
+
+                <Separator className="my-4" />
+
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
+                  onClick={handleLogout}
+                >
+                  <LogOut className="h-4 w-4 mr-3" />
+                  Keluar
+                </Button>
               </CardContent>
             </Card>
           </div>
 
           {/* Main Content */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-3">
+            {/* Personal Information Tab */}
             {activeTab === "personal" && (
-              <>
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <User className="h-6 w-6 mr-2 text-blue-600" />
-                      Informasi Pribadi
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="name">Nama Lengkap</Label>
-                        <Input
-                          id="name"
-                          value={user.name}
-                          className="bg-gray-50"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="email">Email</Label>
-                        <Input
-                          id="email"
-                          value={user.email}
-                          readOnly
-                          className="bg-gray-100"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="phone">Nomor Telepon</Label>
-                        <Input id="phone" placeholder="+62 812-3456-7890" />
-                      </div>
-                      <div>
-                        <Label htmlFor="birthdate">Tanggal Lahir</Label>
-                        <Input id="birthdate" type="date" />
-                      </div>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="address">Alamat</Label>
-                      <Input
-                        id="address"
-                        placeholder="Masukkan alamat lengkap"
-                      />
-                    </div>
-
-                    <Button className="bg-blue-600 hover:bg-blue-700">
-                      Simpan Perubahan
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Status Membership</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg">
-                      <div className="flex items-center justify-between mb-4">
-                        <Badge
-                          className={`${membershipColor} text-lg px-4 py-2`}
-                        >
-                          <Award className="h-4 w-4 mr-2" />
-                          Member {membershipLevel}
-                        </Badge>
-                        <div className="text-right">
-                          <div className="text-2xl font-bold text-blue-600">
-                            20
-                          </div>
-                          <div className="text-sm text-gray-600">Poin</div>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                        <div>
-                          <div className="text-xl font-bold text-gray-900">
-                            {completedBookings}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            Total Booking
-                          </div>
-                        </div>
-                        <div>
-                          <div className="text-xl font-bold text-gray-900">
-                            0
-                          </div>
-                          <div className="text-sm text-gray-600">Tahun Ini</div>
-                        </div>
-                        <div>
-                          <div className="text-xl font-bold text-gray-900">
-                            0
-                          </div>
-                          <div className="text-sm text-gray-600">Favorit</div>
-                        </div>
-                        <div>
-                          <div className="text-xl font-bold text-gray-900">
-                            100%
-                          </div>
-                          <div className="text-sm text-gray-600">Rating</div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </>
-            )}
-
-            {activeTab === "security" && (
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Shield className="h-6 w-6 mr-2 text-blue-600" />
-                    Keamanan Akun
+                    <User className="h-5 w-5 mr-2" />
+                    Informasi Pribadi
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div>
-                    <Label htmlFor="currentPassword">Password Saat Ini</Label>
-                    <Input
-                      id="currentPassword"
-                      type="password"
-                      placeholder="Masukkan password saat ini"
-                    />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <Label htmlFor="name">Nama Lengkap</Label>
+                      <Input
+                        id="name"
+                        value={user.name}
+                        disabled
+                        className="bg-gray-50"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        id="email"
+                        value={user.email}
+                        disabled
+                        className="bg-gray-50"
+                      />
+                    </div>
                   </div>
 
-                  <div>
-                    <Label htmlFor="newPassword">Password Baru</Label>
-                    <Input
-                      id="newPassword"
-                      type="password"
-                      placeholder="Masukkan password baru"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="confirmPassword">
-                      Konfirmasi Password Baru
-                    </Label>
-                    <Input
-                      id="confirmPassword"
-                      type="password"
-                      placeholder="Konfirmasi password baru"
-                    />
-                  </div>
-
-                  <Button className="bg-blue-600 hover:bg-blue-700">
-                    Update Password
-                  </Button>
-
-                  <Separator />
-
-                  <div className="space-y-4">
-                    <h4 className="font-semibold">Autentikasi Dua Faktor</h4>
-                    <div className="flex items-center justify-between p-4 border rounded-lg">
-                      <div>
-                        <div className="font-medium">SMS Authentication</div>
-                        <div className="text-sm text-gray-600">
-                          Terima kode verifikasi via SMS
-                        </div>
-                      </div>
-                      <Button variant="outline">Aktifkan</Button>
+                  <div className="p-4 bg-blue-50 rounded-lg">
+                    <h4 className="font-semibold text-blue-900 mb-2">
+                      Info Akun
+                    </h4>
+                    <div className="space-y-2 text-sm text-blue-800">
+                      <p>• Member sejak: 2025</p>
+                      <p>• Total booking: {completedBookings}</p>
+                      <p>• Status member: {membershipData.level}</p>
+                      <p>
+                        • Total pengeluaran:{" "}
+                        {new Intl.NumberFormat("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0,
+                        }).format(totalSpent)}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             )}
 
-            {activeTab === "preferences" && (
+            {/* Membership Tab */}
+            {activeTab === "membership" && (
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Settings className="h-6 w-6 mr-2 text-blue-600" />
-                    Preferensi
+                    <Crown className="h-5 w-5 mr-2" />
+                    Status Membership
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div>
-                    <h4 className="font-semibold mb-4">Notifikasi</h4>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="font-medium">Email Promosi</div>
-                          <div className="text-sm text-gray-600">
-                            Terima penawaran dan promosi khusus
+                <CardContent>
+                  <div className="space-y-6">
+                    <div
+                      className={`p-6 rounded-lg ${membershipData.color} ${membershipData.textColor}`}
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center">
+                          <membershipData.icon className="h-8 w-8 mr-3" />
+                          <div>
+                            <h3 className="text-2xl font-bold">
+                              Member {membershipData.level}
+                            </h3>
+                            <p className="opacity-90">
+                              Status membership Anda saat ini
+                            </p>
                           </div>
                         </div>
-                        <input
-                          type="checkbox"
-                          className="rounded"
-                          defaultChecked
-                        />
+                        <div className="text-right">
+                          <div className="text-2xl font-bold">
+                            {completedBookings}
+                          </div>
+                          <div className="opacity-90">Booking Selesai</div>
+                        </div>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="font-medium">Konfirmasi Booking</div>
-                          <div className="text-sm text-gray-600">
-                            Notifikasi konfirmasi pemesanan
+
+                      {membershipData.nextLevel && (
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm opacity-90">
+                            <span>Progress ke {membershipData.nextLevel}</span>
+                            <span>{Math.round(membershipData.progress)}%</span>
+                          </div>
+                          <div className="w-full bg-white/20 rounded-full h-2">
+                            <div
+                              className="bg-white h-2 rounded-full transition-all duration-300"
+                              style={{ width: `${membershipData.progress}%` }}
+                            ></div>
                           </div>
                         </div>
-                        <input
-                          type="checkbox"
-                          className="rounded"
-                          defaultChecked
-                        />
+                      )}
+                    </div>
+
+                    <div>
+                      <h4 className="text-lg font-semibold mb-3">
+                        Keuntungan Member {membershipData.level}
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {membershipData.benefits.map((benefit, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center p-3 bg-green-50 rounded-lg"
+                          >
+                            <Heart className="h-4 w-4 text-green-600 mr-2 flex-shrink-0" />
+                            <span className="text-sm text-green-800">
+                              {benefit}
+                            </span>
+                          </div>
+                        ))}
                       </div>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="font-medium">Reminder Check-in</div>
-                          <div className="text-sm text-gray-600">
-                            Pengingat sebelum check-in
-                          </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="bg-blue-50 p-4 rounded-lg text-center">
+                        <TrendingUp className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                        <div className="text-2xl font-bold text-blue-600">
+                          {new Intl.NumberFormat("id-ID", {
+                            style: "currency",
+                            currency: "IDR",
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                          }).format(totalSpent)}
                         </div>
-                        <input
-                          type="checkbox"
-                          className="rounded"
-                          defaultChecked
-                        />
+                        <div className="text-sm text-blue-700">
+                          Total Pengeluaran
+                        </div>
+                      </div>
+
+                      <div className="bg-purple-50 p-4 rounded-lg text-center">
+                        <Star className="h-8 w-8 text-purple-600 mx-auto mb-2" />
+                        <div className="text-2xl font-bold text-purple-600">
+                          {Math.floor(totalSpent / 100000)}
+                        </div>
+                        <div className="text-sm text-purple-700">
+                          Poin Tersedia
+                        </div>
+                      </div>
+
+                      <div className="bg-green-50 p-4 rounded-lg text-center">
+                        <Gift className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                        <div className="text-2xl font-bold text-green-600">
+                          3
+                        </div>
+                        <div className="text-sm text-green-700">
+                          Voucher Aktif
+                        </div>
                       </div>
                     </div>
                   </div>
-
-                  <Separator />
-
-                  <div>
-                    <h4 className="font-semibold mb-4">Preferensi Kamar</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="bedType">Tipe Tempat Tidur</Label>
-                        <select
-                          id="bedType"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                        >
-                          <option>King Bed</option>
-                          <option>Queen Bed</option>
-                          <option>Twin Beds</option>
-                        </select>
-                      </div>
-                      <div>
-                        <Label htmlFor="roomType">Tipe Kamar</Label>
-                        <select
-                          id="roomType"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                        >
-                          <option>Standard</option>
-                          <option>Deluxe</option>
-                          <option>Suite</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <Button className="bg-blue-600 hover:bg-blue-700">
-                    Simpan Preferensi
-                  </Button>
                 </CardContent>
               </Card>
             )}
